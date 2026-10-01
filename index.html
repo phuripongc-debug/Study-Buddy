@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">SB</div>
+                <div>
+                    <h2>Study Buddy</h2>
+                    <small>ระบบช่วยจัดการห้องเรียน</small>
+                </div>
+            </div>
+
+            <nav>
+                <button class="menu active" onclick="showPage('dashboard', this)">
+                    🏠 หน้าหลัก
+                </button>
+
+                <button class="menu" onclick="showPage('schedule', this)">
+                    📅 ตารางเรียน
+                </button>
+
+                <button class="menu" onclick="showPage('assignment', this)">
+                    📝 งานที่ต้องส่ง
+                </button>
+
+                <button class="menu" onclick="showPage('exam', this)">
+                    🧾 ตารางสอบ
+                </button>
+
+                <button class="menu" onclick="showPage('appointment', this)">
+                    📌 นัดหมาย
+                </button>
+
+                <button class="menu" onclick="showPage('announcement', this)">
+                    📢 ประกาศ
+                </button>
+            </nav>
+
+            <div class="user-box">
+                <div class="avatar">A</div>
+                <div>
+                    <b>นักศึกษา</b>
+                    <small>สมาชิกห้อง</small>
+                </div>
+            </div>
+        </aside>
+
+
+        <!-- Main -->
+        <main class="main">
+
+            <header class="topbar">
+                <div>
+                    <h1 id="pageTitle">หน้าหลัก</h1>
+                    <p>ยินดีต้อนรับเข้าสู่ Study Buddy 👋</p>
+                </div>
+
+                <div class="room">
+                    <span>ห้องเรียน</span>
+                    <b>CEAI-2/1</b>
+                </div>
+            </header>
+
+
+            <!-- Dashboard -->
+            <section id="dashboard" class="page active">
+
+                <div class="welcome">
+                    <div>
+                        <span>วันนี้</span>
+                        <h2 id="today"></h2>
+                        <p>ตรวจสอบตารางเรียนและงานที่ใกล้ถึงกำหนดส่ง</p>
+                    </div>
+
+                    <div class="welcome-icon">📚</div>
+                </div>
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">📅</div>
+                        <div>
+                            <span>เรียนวันนี้</span>
+                            <strong>3</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">📝</div>
+                        <div>
+                            <span>งานค้าง</span>
+                            <strong id="assignmentCount">2</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon red">🧾</div>
+                        <div>
+                            <span>สอบใกล้ถึง</span>
+                            <strong>1</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">📢</div>
+                        <div>
+                            <span>ประกาศใหม่</span>
+                            <strong>2</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="grid">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📝 งานใกล้ถึงกำหนด</h3>
+                            <button onclick="showPage('assignment')">ดูทั้งหมด</button>
+                        </div>
+
+                        <div id="dashboardAssignments"></div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📢 ประกาศล่าสุด</h3>
+                            <button onclick="showPage('announcement')">ดูทั้งหมด</button>
+                        </div>
+
+                        <div class="announcement-item">
+                            <b>แจ้งกำหนดส่งงาน</b>
+                            <p>อย่าลืมส่งแบบฝึกหัดวิชาวิศวกรรมซอฟต์แวร์</p>
+                            <small>วันนี้ 09:30 น.</small>
+                        </div>
+
+                        <div class="announcement-item">
+                            <b>แจ้งเปลี่ยนห้องเรียน</b>
+                            <p>คาบวันศุกร์ย้ายไปห้อง CE-302</p>
+                            <small>เมื่อวาน</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Schedule -->
+            <section id="schedule" class="page">
+
+                <div class="section-head">
+                    <div>
+                        <h2>📅 ตารางเรียน</h2>
+                        <p>ตารางเรียนของห้อง CEAI-2/1</p>
+                    </div>
+
+                    <button class="primary" onclick="openModal('scheduleModal')">
+                        + เพิ่มตารางเรียน
+                    </button>
+                </div>
+
+                <div class="table-card">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>วัน</th>
+                                <th>เวลา</th>
+                                <th>วิชา</th>
+                                <th>ห้อง</th>
+                                <th>ผู้สอน</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="scheduleTable">
+                            <tr>
+                                <td>จันทร์</td>
+                                <td>09:00 - 12:00</td>
+                                <td>วิศวกรรมซอฟต์แวร์</td>
+                                <td>CE-301</td>
+                                <td>อาจารย์ A</td>
+                            </tr>
+
+                            <tr>
+                                <td>พุธ</td>
+                                <td>13:00 - 16:00</td>
+                                <td>Data Structure</td>
+                                <td>CE-302</td>
+                                <td>อาจารย์ B</td>
+                            </tr>
+
+                            <tr>
+                                <td>ศุกร์</td>
+                                <td>09:00 - 12:00</td>
+                                <td>Artificial Intelligence</td>
+                                <td>AI-201</td>
+                                <td>อาจารย์ C</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </section>
+
+
+            <!-- Assignment -->
+            <section id="assignment" class="page">
+
+                <div class="section-head">
+                    <div>
+                        <h2>📝 งานที่ต้องส่ง</h2>
+                        <p>ติดตามงานและกำหนดส่งของห้อง</p>
+                    </div>
+
+                    <button class="primary" onclick="openModal('assignmentModal')">
+                        + เพิ่มงาน
+                    </button>
+                </div>
+
+                <div class="assignment-list" id="assignmentList"></div>
+
+            </section>
+
+
+            <!-- Exam -->
+            <section id="exam" class="page">
+
+                <div class="section-head">
+                    <div>
+                        <h2>🧾 ตารางสอบ</h2>
+                        <p>กำหนดการสอบของห้อง</p>
+                    </div>
+
+                    <button class="primary" onclick="openModal('examModal')">
+                        + เพิ่มตารางสอบ
+                    </button>
+                </div>
+
+                <div class="table-card">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>วิชา</th>
+                                <th>วันที่</th>
+                                <th>เวลา</th>
+                                <th>ห้องสอบ</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="examTable">
+                            <tr>
+                                <td>วิศวกรรมซอฟต์แวร์</td>
+                                <td>10 ต.ค. 2026</td>
+                                <td>09:00 - 12:00</td>
+                                <td>CE-301</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </section>
+
+
+            <!-- Appointment -->
+            <section id="appointment" class="page">
+
+                <div class="section-head">
+                    <div>
+                        <h2>📌 นัดหมาย</h2>
+                        <p>นัดหมายสำคัญของห้องเรียน</p>
+                    </div>
+
+                    <button class="primary" onclick="openModal('appointmentModal')">
+                        + เพิ่มนัดหมาย
+                    </button>
+                </div>
+
+                <div class="card appointment-card">
+
+                    <div class="appointment">
+                        <div class="date-box">
+                            <b>05</b>
+                            <span>ต.ค.</span>
+                        </div>
+
+                        <div>
+                            <h3>ประชุมงานกลุ่ม</h3>
+                            <p>ห้อง CE-301 • 13:00 น.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Announcement -->
+            <section id="announcement" class="page">
+
+                <div class="section-head">
