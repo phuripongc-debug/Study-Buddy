@@ -655,13 +655,10 @@ tr:hover td {
 
     .stats {
         grid-template-columns: repeat(2, 1fr);
-
     }
 
     .dashboard-grid {
-
         grid-template-columns: 1fr;
-
     }
 
 }
@@ -669,127 +666,82 @@ tr:hover td {
 @media (max-width: 650px) {
 
     .sidebar {
-
         width: 70px;
-
     }
 
     .brand {
-
         justify-content: center;
-
         padding: 18px 8px;
-
     }
 
     .brand > div:last-child,
-
     .menu span:last-child,
-
     .user-card div:last-child {
-
         display: none;
-
     }
 
     .brand-logo {
-
         width: 40px;
-
         height: 40px;
-
     }
 
     .menu {
-
         justify-content: center;
-
         padding: 13px 5px;
-
     }
 
     .user-card {
-
         justify-content: center;
-
         padding: 15px 5px;
-
     }
 
     .main {
-
         margin-left: 70px;
-
         width: calc(100% - 70px);
-
         padding: 18px;
-
     }
 
     .topbar {
-
         align-items: flex-start;
-
         gap: 10px;
-
     }
 
     .topbar h1 {
-
         font-size: 22px;
-
     }
 
     .room-badge {
-
         display: none;
-
     }
 
     .welcome-card {
-
         padding: 20px;
-
     }
 
     .welcome-icon {
-
         font-size: 40px;
-
     }
 
     .stats {
-
         grid-template-columns: 1fr 1fr;
-
         gap: 10px;
-
     }
 
     .stat-card {
-
         padding: 13px;
-
     }
 
     .section-head {
-
         align-items: flex-start;
-
         gap: 15px;
-
     }
 
     .section-head h2 {
-
         font-size: 19px;
-
     }
 
     .primary-button {
-
         white-space: nowrap;
-
     }
 
 }
