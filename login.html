@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Study Buddy</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <div class="brand-logo">
+            SB
+        </div>
+
+        <h1>Study Buddy</h1>
+
+        <p>เข้าสู่ระบบจัดการห้องเรียน</p>
+
+        <label>ชื่อผู้ใช้</label>
+        <input
+            id="username"
+            type="text"
+            placeholder="กรอกชื่อผู้ใช้"
+        >
+
+        <label>รหัสผ่าน</label>
+        <input
+            id="password"
+            type="password"
+            placeholder="กรอกรหัสผ่าน"
+        >
+
+        <button
+            class="primary-button full"
+            onclick="login()"
+        >
+            เข้าสู่ระบบ
+        </button>
+
+        <p id="loginMessage"></p>
+
+    </div>
+
+</div>
+
+<script>
+
+function login() {
+
+    const username =
+        document.getElementById("username").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    if (username === "" || password === "") {
+
+        document.getElementById("loginMessage").textContent =
+            "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน";
+
+        return;
+    }
+
+    // ระบบ Login แบบจำลองสำหรับโปรเจกต์
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
