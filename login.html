@@ -2,152 +2,38 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Buddy - Login</title>
-
-<style>
-*{box-sizing:border-box}
-
-body{
-    margin:0;
-    min-height:100vh;
-    font-family:Arial,sans-serif;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.login-box{
-    width:380px;
-    background:#fff;
-    padding:40px;
-    border-radius:24px;
-    box-shadow:0 20px 50px rgba(0,0,0,.2);
-}
-
-.logo{
-    width:70px;
-    height:70px;
-    margin:0 auto 15px;
-    border-radius:20px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    font-weight:bold;
-}
-
-h1{
-    text-align:center;
-    margin:5px 0;
-    color:#172033;
-}
-
-.subtitle{
-    text-align:center;
-    color:#718096;
-    margin-bottom:30px;
-}
-
-label{
-    display:block;
-    margin-bottom:7px;
-    font-weight:bold;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    margin-bottom:18px;
-    border:1px solid #dbe2ea;
-    border-radius:10px;
-    font-size:15px;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    border:0;
-    border-radius:10px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-button:hover{opacity:.9}
-
-#message{
-    color:#dc2626;
-    text-align:center;
-    margin-top:15px;
-    min-height:20px;
-}
-
-.demo{
-    margin-top:20px;
-    padding:12px;
-    background:#f5f7ff;
-    border-radius:10px;
-    text-align:center;
-    font-size:13px;
-    color:#718096;
-}
-</style>
+<title>Study Buddy Login</title>
 </head>
 
 <body>
 
-<div class="login-box">
+<h1>Study Buddy</h1>
+<h2>เข้าสู่ระบบ</h2>
 
-    <div class="logo">SB</div>
+<input id="user" placeholder="ชื่อผู้ใช้">
+<br><br>
 
-    <h1>Study Buddy</h1>
-    <div class="subtitle">ระบบช่วยจัดการห้องเรียน</div>
+<input id="pass" type="password" placeholder="รหัสผ่าน">
+<br><br>
 
-    <form id="loginForm">
+<button onclick="login()">เข้าสู่ระบบ</button>
 
-        <label>ชื่อผู้ใช้</label>
-        <input id="username" type="text" placeholder="กรอกชื่อผู้ใช้" required>
-
-        <label>รหัสผ่าน</label>
-        <input id="password" type="password" placeholder="กรอกรหัสผ่าน" required>
-
-        <button type="submit">เข้าสู่ระบบ</button>
-
-    </form>
-
-    <div id="message"></div>
-
-    <div class="demo">
-        บัญชีทดลอง<br>
-        Username: <b>student</b><br>
-        Password: <b>1234</b>
-    </div>
-
-</div>
+<p id="msg"></p>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit",function(e){
+function login(){
 
-    e.preventDefault();
+    let user = document.getElementById("user").value;
+    let pass = document.getElementById("pass").value;
 
-    const username=document.getElementById("username").value.trim();
-    const password=document.getElementById("password").value;
-
-    if(username==="student" && password==="1234"){
-        sessionStorage.setItem("studyBuddyLogin","true");
-        window.location.href="index.html";
+    if(user === "student" && pass === "1234"){
+        window.location.href = "index.html";
     }else{
-        document.getElementById("message").textContent=
+        document.getElementById("msg").innerHTML =
         "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
     }
 
-});
+}
 </script>
 
 </body>
