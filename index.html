@@ -1,296 +1,424 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Study Buddy</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Buddy</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <div class="brand">
-            <div class="brand-logo">SB</div>
+    <div class="brand">
+        <div class="brand-logo">SB</div>
+        <div>
+            <b>Study Buddy</b>
+            <small>ระบบช่วยจัดการห้องเรียน</small>
+        </div>
+    </div>
 
+    <div class="menu">
+
+        <button class="menu-btn active" onclick="showPage('dashboard',this)">
+            🏠 หน้าหลัก
+        </button>
+
+        <button class="menu-btn" onclick="showPage('schedule',this)">
+            🗓️ ตารางเรียน
+        </button>
+
+        <button class="menu-btn" onclick="showPage('assignment',this)">
+            📝 งานที่ต้องส่ง
+        </button>
+
+        <button class="menu-btn" onclick="showPage('exam',this)">
+            📄 ตารางสอบ
+        </button>
+
+        <button class="menu-btn" onclick="showPage('appointment',this)">
+            📌 นัดหมาย
+        </button>
+
+        <button class="menu-btn" onclick="showPage('announcement',this)">
+            📢 ประกาศ
+        </button>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+        <div class="user-card">
+            <div class="avatar">👨‍🎓</div>
             <div>
-                <h2>Study Buddy</h2>
-                <p>ระบบช่วยจัดการห้องเรียน</p>
+                <b>นักศึกษา</b>
+                <small>สมาชิกห้อง</small>
             </div>
         </div>
 
-        <nav class="menu">
+        <button class="logout-btn" onclick="logout()">
+            🚪 ออกจากระบบ
+        </button>
 
-            <button class="menu-btn active"
-                    onclick="showPage('dashboard', this)">
-                <span>🏠</span>
-                หน้าหลัก
-            </button>
+    </div>
 
-            <button class="menu-btn"
-                    onclick="showPage('schedule', this)">
-                <span>🗓️</span>
-                ตารางเรียน
-            </button>
+</aside>
 
-            <button class="menu-btn"
-                    onclick="showPage('assignment', this)">
-                <span>📝</span>
-                งานที่ต้องส่ง
-            </button>
 
-            <button class="menu-btn"
-                    onclick="showPage('exam', this)">
-                <span>📄</span>
-                ตารางสอบ
-            </button>
+<main class="main">
 
-            <button class="menu-btn"
-                    onclick="showPage('appointment', this)">
-                <span>📌</span>
-                นัดหมาย
-            </button>
+<header class="topbar">
+    <div>
+        <h2 id="pageTitle">หน้าหลัก</h2>
+        <p id="pageSubtitle">ภาพรวมข้อมูลของห้องเรียน</p>
+    </div>
 
-            <button class="menu-btn"
-                    onclick="showPage('announcement', this)">
-                <span>📢</span>
-                ประกาศ
-            </button>
+    <div class="room-badge">
+        ห้อง CEAI-2/1
+    </div>
+</header>
 
-        </nav>
 
-        <div class="sidebar-bottom">
+<!-- DASHBOARD -->
 
-            <div class="user-card">
-                <div class="user-avatar">👤</div>
+<section id="dashboard" class="page">
 
-                <div>
-                    <strong>นักศึกษา</strong>
-                    <small>สมาชิกห้อง CEAI-2/1</small>
-                </div>
+    <div class="welcome">
+        <h1>ยินดีต้อนรับเข้าสู่ Study Buddy 👋</h1>
+        <p>ระบบช่วยจัดการข้อมูลและกำหนดการของห้องเรียน</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card blue">
+            <span>📚</span>
+            <div>
+                <small>เรียนวันนี้</small>
+                <strong id="today">0</strong>
             </div>
-
-            <button class="logout-btn" onclick="logout()">
-                🚪 ออกจากระบบ
-            </button>
-
         </div>
 
-    </aside>
-
-
-    <!-- MAIN -->
-    <main class="main">
-
-        <!-- TOPBAR -->
-        <header class="topbar">
-
+        <div class="stat-card orange">
+            <span>📝</span>
             <div>
-                <h1 id="pageTitle">หน้าหลัก</h1>
-                <p id="pageSubtitle">
-                    ภาพรวมข้อมูลการเรียนของห้องเรียน
-                </p>
+                <small>งานที่ต้องส่ง</small>
+                <strong id="assignmentCount">0</strong>
             </div>
+        </div>
 
-            <div class="room-badge">
-                🏫 CEAI-2/1
+        <div class="stat-card purple">
+            <span>📄</span>
+            <div>
+                <small>ตารางสอบ</small>
+                <strong id="examCount">0</strong>
             </div>
+        </div>
 
-        </header>
-
-
-        <!-- ================= DASHBOARD ================= -->
-
-        <section id="dashboard" class="page">
-
-            <div class="welcome">
-
-                <div>
-                    <span class="welcome-tag">STUDY BUDDY</span>
-
-                    <h2>
-                        ยินดีต้อนรับเข้าสู่ Study Buddy 👋
-                    </h2>
-
-                    <p>
-                        ระบบช่วยจัดการตารางเรียน งานสอบ นัดหมาย
-                        และประกาศของห้องเรียน
-                    </p>
-                </div>
-
-                <div class="welcome-icon">
-                    📚
-                </div>
-
+        <div class="stat-card green">
+            <span>📢</span>
+            <div>
+                <small>ประกาศ</small>
+                <strong id="announcementCount">0</strong>
             </div>
+        </div>
 
+    </div>
 
-            <div class="stats">
+    <div class="dashboard-grid">
 
-                <div class="stat-card blue">
-                    <div class="stat-icon">🗓️</div>
-
-                    <div>
-                        <span>เรียนวันนี้</span>
-                        <strong id="today">0</strong>
-                        <small>รายการ</small>
-                    </div>
-                </div>
-
-
-                <div class="stat-card orange">
-                    <div class="stat-icon">📝</div>
-
-                    <div>
-                        <span>งานที่ต้องส่ง</span>
-                        <strong id="assignmentCount">0</strong>
-                        <small>รายการ</small>
-                    </div>
-                </div>
-
-
-                <div class="stat-card purple">
-                    <div class="stat-icon">📄</div>
-
-                    <div>
-                        <span>การสอบ</span>
-                        <strong id="examCount">0</strong>
-                        <small>รายการ</small>
-                    </div>
-                </div>
-
-
-                <div class="stat-card green">
-                    <div class="stat-icon">📢</div>
-
-                    <div>
-                        <span>ประกาศ</span>
-                        <strong id="announcementCount">0</strong>
-                        <small>รายการ</small>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="dashboard-grid">
-
-                <div class="card">
-
-                    <div class="card-title">
-                        <div>
-                            <h3>📝 งานที่ต้องส่ง</h3>
-                            <p>รายการงานล่าสุด</p>
-                        </div>
-
-                        <button class="text-btn"
-                                onclick="showPage('assignment')">
-                            ดูทั้งหมด →
-                        </button>
-                    </div>
-
-                    <div id="dashboardAssignments"
-                         class="dashboard-list">
-
-                        <div class="empty">
-                            ยังไม่มีงานที่ต้องส่ง
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="card-title">
-                        <div>
-                            <h3>📢 ประกาศล่าสุด</h3>
-                            <p>ข่าวสารจากห้องเรียน</p>
-                        </div>
-
-                        <button class="text-btn"
-                                onclick="showPage('announcement')">
-                            ดูทั้งหมด →
-                        </button>
-                    </div>
-
-                    <div id="dashboardAnnouncements"
-                         class="dashboard-list">
-
-                        <div class="empty">
-                            ยังไม่มีประกาศ
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= SCHEDULE ================= -->
-
-        <section id="schedule" class="page hidden">
-
+        <div class="card">
             <div class="section-head">
-
-                <div>
-                    <h2>🗓️ ตารางเรียน</h2>
-                    <p>ตารางเรียนประจำห้อง CEAI-2/1</p>
-                </div>
-
-                <button class="primary-btn"
-                        onclick="openModal('scheduleModal')">
-                    ＋ เพิ่มตารางเรียน
+                <h3>📝 งานใกล้ถึงกำหนด</h3>
+                <button class="link-btn" onclick="showPage('assignment')">
+                    ดูทั้งหมด
                 </button>
-
             </div>
 
-
-            <div class="card table-card">
-
-                <div class="table-wrapper">
-
-                    <table>
-
-                        <thead>
-                            <tr>
-                                <th>วัน</th>
-                                <th>เวลา</th>
-                                <th>วิชา</th>
-                                <th>ห้อง</th>
-                                <th>อาจารย์</th>
-                                <th>จัดการ</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="scheduleTable"></tbody>
-
-                    </table>
-
-                </div>
-
+            <div id="dashboardAssignments" class="dashboard-list">
+                <p class="empty">ยังไม่มีข้อมูล</p>
             </div>
+        </div>
 
-        </section>
-
-
-        <!-- ================= ASSIGNMENT ================= -->
-
-        <section id="assignment" class="page hidden">
-
+        <div class="card">
             <div class="section-head">
+                <h3>📢 ประกาศล่าสุด</h3>
+                <button class="link-btn" onclick="showPage('announcement')">
+                    ดูทั้งหมด
+                </button>
+            </div>
 
-                <div>
-                    <h2>📝 งานที่ต้องส่ง</h2>
-                    <p>ติดตามงานและกำหนดส่ง</p>
-                </div>
+            <div id="dashboardAnnouncements" class="dashboard-list">
+                <p class="empty">ยังไม่มีข้อมูล</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SCHEDULE -->
+
+<section id="schedule" class="page hidden">
+
+    <div class="section-head">
+        <div>
+            <h2>🗓️ ตารางเรียน</h2>
+            <p>จัดการตารางเรียนของห้อง</p>
+        </div>
+
+        <button class="primary-btn" onclick="openModal('scheduleModal')">
+            + เพิ่มตารางเรียน
+        </button>
+    </div>
+
+    <div class="table-card">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>วัน</th>
+                    <th>เวลา</th>
+                    <th>วิชา</th>
+                    <th>ห้อง</th>
+                    <th>อาจารย์</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+
+            <tbody id="scheduleTable"></tbody>
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ASSIGNMENT -->
+
+<section id="assignment" class="page hidden">
+
+    <div class="section-head">
+        <div>
+            <h2>📝 งานที่ต้องส่ง</h2>
+            <p>ติดตามงานและกำหนดส่ง</p>
+        </div>
+
+        <button class="primary-btn" onclick="openModal('assignmentModal')">
+            + เพิ่มงาน
+        </button>
+    </div>
+
+    <div id="assignmentList" class="item-grid"></div>
+
+</section>
+
+
+<!-- EXAM -->
+
+<section id="exam" class="page hidden">
+
+    <div class="section-head">
+        <div>
+            <h2>📄 ตารางสอบ</h2>
+            <p>ข้อมูลการสอบของห้องเรียน</p>
+        </div>
+
+        <button class="primary-btn" onclick="openModal('examModal')">
+            + เพิ่มตารางสอบ
+        </button>
+    </div>
+
+    <div class="table-card">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>วิชา</th>
+                    <th>วันที่</th>
+                    <th>เวลา</th>
+                    <th>ห้อง</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+
+            <tbody id="examTable"></tbody>
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- APPOINTMENT -->
+
+<section id="appointment" class="page hidden">
+
+    <div class="section-head">
+        <div>
+            <h2>📌 นัดหมาย</h2>
+            <p>กำหนดการและนัดหมายของห้อง</p>
+        </div>
+
+        <button class="primary-btn" onclick="openModal('appointmentModal')">
+            + เพิ่มนัดหมาย
+        </button>
+    </div>
+
+    <div id="appointmentList" class="item-grid"></div>
+
+</section>
+
+
+<!-- ANNOUNCEMENT -->
+
+<section id="announcement" class="page hidden">
+
+    <div class="section-head">
+        <div>
+            <h2>📢 ประกาศ</h2>
+            <p>ข่าวสารและประกาศภายในห้อง</p>
+        </div>
+
+        <button class="primary-btn" onclick="openModal('announcementModal')">
+            + เพิ่มประกาศ
+        </button>
+    </div>
+
+    <div id="announcementList" class="item-grid"></div>
+
+</section>
+
+
+</main>
+</div>
+
+
+<!-- SCHEDULE MODAL -->
+
+<div id="scheduleModal" class="modal">
+
+<div class="modal-box">
+
+    <div class="modal-head">
+        <h3>เพิ่มตารางเรียน</h3>
+        <button onclick="closeModal('scheduleModal')">×</button>
+    </div>
+
+    <select id="scheduleDay">
+        <option value="">เลือกวัน</option>
+        <option>จันทร์</option>
+        <option>อังคาร</option>
+        <option>พุธ</option>
+        <option>พฤหัสบดี</option>
+        <option>ศุกร์</option>
+    </select>
+
+    <input id="scheduleTime" type="text" placeholder="เวลา เช่น 09:00 - 12:00">
+    <input id="scheduleSubject" type="text" placeholder="ชื่อวิชา">
+    <input id="scheduleRoom" type="text" placeholder="ห้องเรียน">
+    <input id="scheduleTeacher" type="text" placeholder="อาจารย์">
+
+    <button class="primary-btn full" onclick="addSchedule()">บันทึก</button>
+
+</div>
+</div>
+
+
+<!-- ASSIGNMENT MODAL -->
+
+<div id="assignmentModal" class="modal">
+
+<div class="modal-box">
+
+    <div class="modal-head">
+        <h3>เพิ่มงาน</h3>
+        <button onclick="closeModal('assignmentModal')">×</button>
+    </div>
+
+    <input id="assignmentName" type="text" placeholder="ชื่องาน">
+    <textarea id="assignmentDetail" placeholder="รายละเอียด"></textarea>
+    <input id="assignmentDate" type="date">
+
+    <button class="primary-btn full" onclick="addAssignment()">บันทึก</button>
+
+</div>
+</div>
+
+
+<!-- EXAM MODAL -->
+
+<div id="examModal" class="modal">
+
+<div class="modal-box">
+
+    <div class="modal-head">
+        <h3>เพิ่มตารางสอบ</h3>
+        <button onclick="closeModal('examModal')">×</button>
+    </div>
+
+    <input id="examSubject" type="text" placeholder="ชื่อวิชา">
+    <input id="examDate" type="date">
+    <input id="examTime" type="text" placeholder="เวลา">
+    <input id="examRoom" type="text" placeholder="ห้องสอบ">
+
+    <button class="primary-btn full" onclick="addExam()">บันทึก</button>
+
+</div>
+</div>
+
+
+<!-- APPOINTMENT MODAL -->
+
+<div id="appointmentModal" class="modal">
+
+<div class="modal-box">
+
+    <div class="modal-head">
+        <h3>เพิ่มนัดหมาย</h3>
+        <button onclick="closeModal('appointmentModal')">×</button>
+    </div>
+
+    <input id="appointmentName" type="text" placeholder="ชื่อนัดหมาย">
+    <input id="appointmentDate" type="date">
+    <input id="appointmentTime" type="text" placeholder="เวลา">
+    <input id="appointmentRoom" type="text" placeholder="สถานที่">
+
+    <button class="primary-btn full" onclick="addAppointment()">บันทึก</button>
+
+</div>
+</div>
+
+
+<!-- ANNOUNCEMENT MODAL -->
+
+<div id="announcementModal" class="modal">
+
+<div class="modal-box">
+
+    <div class="modal-head">
+        <h3>เพิ่มประกาศ</h3>
+        <button onclick="closeModal('announcementModal')">×</button>
+    </div>
+
+    <input id="announcementTitle" type="text" placeholder="หัวข้อประกาศ">
+
+    <textarea
+        id="announcementDetailInput"
+        placeholder="รายละเอียดประกาศ"></textarea>
+
+    <button class="primary-btn full" onclick="addAnnouncement()">
+        บันทึก
+    </button>
+
+</div>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
