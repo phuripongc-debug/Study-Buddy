@@ -51,28 +51,22 @@
 </div>
 
 <script>
-
 function login() {
 
-    const username =
-        document.getElementById("username").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    const password =
-        document.getElementById("password").value;
+    if (username === "student" && password === "1234") {
 
-    if (username === "" || password === "") {
+        window.location.href = "index.html";
+
+    } else {
 
         document.getElementById("loginMessage").textContent =
-            "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน";
+            "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
 
-        return;
     }
-
-    // ระบบ Login แบบจำลองสำหรับโปรเจกต์
-    window.location.href = "index.html";
 }
-
 </script>
-
 </body>
 </html>
