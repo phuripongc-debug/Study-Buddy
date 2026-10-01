@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login - Study Buddy</title>
 
     <style>
@@ -15,81 +16,188 @@
             margin: 0;
             min-height: 100vh;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+        }
+
+        .circle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.10);
+        }
+
+        .circle1 {
+            width: 350px;
+            height: 350px;
+            top: -120px;
+            left: -100px;
+        }
+
+        .circle2 {
+            width: 450px;
+            height: 450px;
+            right: -180px;
+            bottom: -220px;
         }
 
         .login-card {
-            width: 380px;
-            padding: 40px;
+            position: relative;
+            z-index: 2;
+
+            width: 390px;
+            max-width: calc(100% - 30px);
+
+            padding: 42px;
+
             background: white;
-            border-radius: 22px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.25);
         }
 
         .logo {
-            width: 70px;
-            height: 70px;
-            margin: auto;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 20px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 25px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 26px;
             font-weight: bold;
         }
 
         h1 {
+            margin: 0;
+
             text-align: center;
-            margin: 18px 0 5px;
+
+            color: #172033;
+
+            font-size: 28px;
         }
 
         .subtitle {
+            margin: 8px 0 30px;
+
             text-align: center;
-            color: #777;
-            margin-bottom: 28px;
+
+            color: #718096;
+
+            font-size: 14px;
         }
 
         label {
             display: block;
-            margin: 15px 0 7px;
+
+            margin: 16px 0 7px;
+
+            color: #374151;
+
+            font-size: 14px;
             font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+
+            padding: 14px;
+
+            border: 1px solid #d9deea;
+
+            border-radius: 11px;
+
+            background: #f8fafc;
+
             font-size: 15px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(79,70,229,0.10);
         }
 
         button {
             width: 100%;
+
             margin-top: 25px;
+
             padding: 14px;
+
             border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
             color: white;
+
             font-size: 16px;
             font-weight: bold;
+
             cursor: pointer;
         }
 
+        button:hover {
+            opacity: 0.9;
+        }
+
         #message {
-            text-align: center;
-            color: red;
+            min-height: 20px;
+
             margin-top: 15px;
+
+            text-align: center;
+
+            color: #dc2626;
+
+            font-size: 14px;
         }
     </style>
 </head>
 
+
 <body>
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+
 
 <div class="login-card">
 
@@ -97,31 +205,41 @@
         SB
     </div>
 
-    <h1>Study Buddy</h1>
+    <h1>
+        Study Buddy
+    </h1>
 
     <p class="subtitle">
-        เข้าสู่ระบบ
+        ระบบช่วยจัดการห้องเรียน
     </p>
 
-    <label>ชื่อผู้ใช้</label>
+
+    <label>
+        ชื่อผู้ใช้
+    </label>
 
     <input
         id="username"
         type="text"
-        placeholder="ชื่อผู้ใช้"
+        placeholder="กรอกชื่อผู้ใช้"
     >
 
-    <label>รหัสผ่าน</label>
+
+    <label>
+        รหัสผ่าน
+    </label>
 
     <input
         id="password"
         type="password"
-        placeholder="รหัสผ่าน"
+        placeholder="กรอกรหัสผ่าน"
     >
+
 
     <button onclick="login()">
         เข้าสู่ระบบ
     </button>
+
 
     <p id="message"></p>
 
@@ -132,16 +250,24 @@
 
 function login() {
 
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value;
+    const username =
+        document.getElementById("username").value.trim();
 
-    if (username === "student" && password === "1234") {
+    const password =
+        document.getElementById("password").value;
 
-        window.location.href = "index.html";
+
+    if (
+        username === "student" &&
+        password === "1234"
+    ) {
+
+        window.location.href =
+            "https://phuripongc-debug.github.io/Study-Buddy/index.html";
 
     } else {
 
-        document.getElementById("message").innerText =
+        document.getElementById("message").textContent =
             "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
 
     }
