@@ -7,95 +7,19 @@
 /* ================= DATA ================= */
 
 let schedules =
-    JSON.parse(localStorage.getItem("studyBuddySchedules")) || [
-
-        {
-            day: "จันทร์",
-            time: "09:00 - 12:00",
-            subject: "วิศวกรรมซอฟต์แวร์",
-            room: "CE-301",
-            teacher: "อาจารย์ A"
-        },
-
-        {
-            day: "พุธ",
-            time: "13:00 - 16:00",
-            subject: "Data Structure",
-            room: "CE-302",
-            teacher: "อาจารย์ B"
-        },
-
-        {
-            day: "ศุกร์",
-            time: "09:00 - 12:00",
-            subject: "Artificial Intelligence",
-            room: "AI-201",
-            teacher: "อาจารย์ C"
-        }
-
-    ];
-
+    JSON.parse(localStorage.getItem("studyBuddySchedules")) || [];
 
 let assignments =
-    JSON.parse(localStorage.getItem("studyBuddyAssignments")) || [
-
-        {
-            name: "แบบฝึกหัดวิศวกรรมซอฟต์แวร์",
-            detail: "ส่งใบงานบทที่ 3",
-            date: "2026-10-05T23:59"
-        },
-
-        {
-            name: "แบบฝึกหัด Data Structure",
-            detail: "Linked List",
-            date: "2026-10-08T23:59"
-        }
-
-    ];
-
+    JSON.parse(localStorage.getItem("studyBuddyAssignments")) || [];
 
 let exams =
-    JSON.parse(localStorage.getItem("studyBuddyExams")) || [
-
-        {
-            subject: "วิศวกรรมซอฟต์แวร์",
-            date: "2026-10-10",
-            time: "09:00 - 12:00",
-            room: "CE-301"
-        }
-
-    ];
-
+    JSON.parse(localStorage.getItem("studyBuddyExams")) || [];
 
 let appointments =
-    JSON.parse(localStorage.getItem("studyBuddyAppointments")) || [
-
-        {
-            name: "ประชุมงานกลุ่ม",
-            date: "2026-10-05",
-            time: "13:00",
-            room: "CE-301"
-        }
-
-    ];
-
+    JSON.parse(localStorage.getItem("studyBuddyAppointments")) || [];
 
 let announcements =
-    JSON.parse(localStorage.getItem("studyBuddyAnnouncements")) || [
-
-        {
-            title: "แจ้งกำหนดส่งงาน",
-            detail: "อย่าลืมส่งแบบฝึกหัดวิชาวิศวกรรมซอฟต์แวร์",
-            date: "วันนี้"
-        },
-
-        {
-            title: "แจ้งเปลี่ยนห้องเรียน",
-            detail: "คาบวันศุกร์ย้ายไปห้อง CE-302",
-            date: "เมื่อวาน"
-        }
-
-    ];
+    JSON.parse(localStorage.getItem("studyBuddyAnnouncements")) || [];
 
 
 /* ================= SAVE ================= */
@@ -133,81 +57,80 @@ function saveData() {
 
 function showPage(pageId, button = null) {
 
-    document.querySelectorAll(".page").forEach(page => {
+    const pages = document.querySelectorAll(".page");
 
-        page.classList.remove("active");
-
+    pages.forEach(page => {
+        page.classList.add("hidden");
     });
 
 
-    const page =
+    const selectedPage =
         document.getElementById(pageId);
 
-
-    if (page) {
-
-        page.classList.add("active");
-
-    }
-
-
-    document.querySelectorAll(".menu").forEach(menu => {
-
-        menu.classList.remove("active");
-
-    });
-
-
-    if (button) {
-
-        button.classList.add("active");
-
-    }
-    else {
-
-        document.querySelectorAll(".menu").forEach(menu => {
-
-            const onclick =
-                menu.getAttribute("onclick") || "";
-
-            if (
-                onclick.includes(
-                    "'" + pageId + "'"
-                )
-            ) {
-
-                menu.classList.add("active");
-
-            }
-
-        });
-
+    if (selectedPage) {
+        selectedPage.classList.remove("hidden");
     }
 
 
     const titles = {
 
-        dashboard: "หน้าหลัก",
-        schedule: "ตารางเรียน",
-        assignment: "งานที่ต้องส่ง",
-        exam: "ตารางสอบ",
-        appointment: "นัดหมาย",
-        announcement: "ประกาศ"
+        dashboard: [
+            "หน้าหลัก",
+            "ภาพรวมข้อมูลการเรียนของห้องเรียน"
+        ],
+
+        schedule: [
+            "ตารางเรียน",
+            "ตารางเรียนประจำห้อง CEAI-2/1"
+        ],
+
+        assignment: [
+            "งานที่ต้องส่ง",
+            "ติดตามงานและกำหนดส่ง"
+        ],
+
+        exam: [
+            "ตารางสอบ",
+            "กำหนดการสอบของห้องเรียน"
+        ],
+
+        appointment: [
+            "นัดหมาย",
+            "นัดหมายและกิจกรรมของห้อง"
+        ],
+
+        announcement: [
+            "ประกาศ",
+            "ข่าวสารสำหรับสมาชิกห้องเรียน"
+        ]
 
     };
 
 
-    const title =
-        document.getElementById("pageTitle");
+    if (titles[pageId]) {
 
+        document.getElementById("pageTitle").textContent =
+            titles[pageId][0];
 
-    if (title && titles[pageId]) {
-
-        title.textContent =
-            titles[pageId];
-
+        document.getElementById("pageSubtitle").textContent =
+            titles[pageId][1];
     }
 
+
+    document
+        .querySelectorAll(".menu-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
@@ -219,11 +142,8 @@ function openModal(id) {
         document.getElementById(id);
 
     if (modal) {
-
         modal.classList.add("show");
-
     }
-
 }
 
 
@@ -233,11 +153,8 @@ function closeModal(id) {
         document.getElementById(id);
 
     if (modal) {
-
         modal.classList.remove("show");
-
     }
-
 }
 
 
@@ -246,39 +163,42 @@ function closeModal(id) {
 document.addEventListener("click", function(event) {
 
     if (event.target.classList.contains("modal")) {
-
         event.target.classList.remove("show");
-
     }
 
 });
 
 
-/* ================= TODAY ================= */
+/* ================= FORMAT DATE ================= */
 
-function updateToday() {
+function formatDate(date) {
 
-    const element =
-        document.getElementById("today");
+    if (!date) return "-";
 
-    if (!element) return;
+    const parts = date.split("-");
+
+    if (parts.length !== 3) {
+        return date;
+    }
+
+    return ${parts[2]}/${parts[1]}/${parts[0]};
+}
 
 
-    const now =
-        new Date();
+/* ================= ESCAPE HTML ================= */
 
+function safeText(text) {
 
-    element.textContent =
-        now.toLocaleDateString(
-            "th-TH",
-            {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            }
-        );
+    if (text === null || text === undefined) {
+        return "";
+    }
 
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
@@ -287,7 +207,7 @@ function updateToday() {
 function addSchedule() {
 
     const day =
-        document.getElementById("scheduleDay").value;
+        document.getElementById("scheduleDay").value.trim();
 
     const time =
         document.getElementById("scheduleTime").value.trim();
@@ -302,16 +222,17 @@ function addSchedule() {
         document.getElementById("scheduleTeacher").value.trim();
 
 
-    if (!time || !subject) {
+    if (!day || !time || !subject) {
 
-        alert("กรุณากรอกวิชาและเวลา");
+        alert("กรุณากรอก วัน เวลา และวิชา");
 
         return;
-
     }
 
 
     schedules.push({
+
+        id: Date.now(),
 
         day,
         time,
@@ -324,33 +245,32 @@ function addSchedule() {
 
     saveData();
 
-    renderSchedules();
+    renderAll();
 
     closeModal("scheduleModal");
 
-    document.getElementById("scheduleTime").value = "";
-    document.getElementById("scheduleSubject").value = "";
-    document.getElementById("scheduleRoom").value = "";
-    document.getElementById("scheduleTeacher").value = "";
-
+    clearForm([
+        "scheduleDay",
+        "scheduleTime",
+        "scheduleSubject",
+        "scheduleRoom",
+        "scheduleTeacher"
+    ]);
 }
 
 
-function deleteSchedule(index) {
+function deleteSchedule(id) {
 
     if (!confirm("ต้องการลบตารางเรียนนี้หรือไม่?")) {
-
         return;
-
     }
 
-
-    schedules.splice(index, 1);
+    schedules =
+        schedules.filter(item => item.id !== id);
 
     saveData();
 
-    renderSchedules();
-
+    renderAll();
 }
 
 
@@ -366,48 +286,48 @@ function renderSchedules() {
 
         table.innerHTML = `
             <tr>
-                <td colspan="6" class="empty">
-                    ยังไม่มีตารางเรียน
+                <td colspan="6">
+                    <div class="empty">
+                        ยังไม่มีข้อมูลตารางเรียน
+                    </div>
                 </td>
             </tr>
         `;
 
         return;
-
     }
 
 
     table.innerHTML =
-        schedules.map((item, index) => `
+        schedules.map(item => `
 
             <tr>
 
-                <td>${escapeHTML(item.day)}</td>
+                <td>${safeText(item.day)}</td>
 
-                <td>${escapeHTML(item.time)}</td>
-
-                <td><strong>${escapeHTML(item.subject)}</strong></td>
-
-                <td>${escapeHTML(item.room || "-")}</td>
-
-                <td>${escapeHTML(item.teacher || "-")}</td>
+                <td>${safeText(item.time)}</td>
 
                 <td>
+                    <strong>
+                        ${safeText(item.subject)}
+                    </strong>
+                </td>
 
+                <td>${safeText(item.room)}</td>
+
+                <td>${safeText(item.teacher)}</td>
+
+                <td>
                     <button
-                        class="delete-button"
-                        onclick="deleteSchedule(${index})">
-
+                        class="small-btn delete-btn"
+                        onclick="deleteSchedule(${item.id})">
                         ลบ
-
                     </button>
-
                 </td>
 
             </tr>
 
         `).join("");
-
 }
 
 
@@ -430,11 +350,12 @@ function addAssignment() {
         alert("กรุณากรอกชื่องานและกำหนดส่ง");
 
         return;
-
     }
 
 
     assignments.push({
+
+        id: Date.now(),
 
         name,
         detail,
@@ -445,33 +366,30 @@ function addAssignment() {
 
     saveData();
 
-    renderAssignments();
+    renderAll();
 
     closeModal("assignmentModal");
 
-
-    document.getElementById("assignmentName").value = "";
-    document.getElementById("assignmentDetail").value = "";
-    document.getElementById("assignmentDate").value = "";
-
+    clearForm([
+        "assignmentName",
+        "assignmentDetail",
+        "assignmentDate"
+    ]);
 }
 
 
-function deleteAssignment(index) {
+function deleteAssignment(id) {
 
     if (!confirm("ต้องการลบงานนี้หรือไม่?")) {
-
         return;
-
     }
 
-
-    assignments.splice(index, 1);
+    assignments =
+        assignments.filter(item => item.id !== id);
 
     saveData();
 
-    renderAssignments();
-
+    renderAll();
 }
 
 
@@ -483,122 +401,88 @@ function renderAssignments() {
     const dashboard =
         document.getElementById("dashboardAssignments");
 
-    const count =
-        document.getElementById("assignmentCount");
+
+    if (!list || !dashboard) return;
 
 
-    if (count) {
+    if (assignments.length === 0) {
 
-        count.textContent =
-            assignments.length;
-
-    }
-
-
-    if (list) {
-
-        if (assignments.length === 0) {
-
-            list.innerHTML = `
+        list.innerHTML = `
+            <div class="card">
                 <div class="empty">
                     ยังไม่มีงานที่ต้องส่ง
                 </div>
-            `;
+            </div>
+        `;
 
-        }
-        else {
+        dashboard.innerHTML = `
+            <div class="empty">
+                ยังไม่มีงานที่ต้องส่ง
+            </div>
+        `;
 
-            list.innerHTML =
-                assignments.map((item, index) => {
-
-                    return `
-
-                        <div class="assignment-card">
-
-                            <h3>
-                                ${escapeHTML(item.name)}
-                            </h3>
-
-                            <p>
-                                ${escapeHTML(
-                                    item.detail ||
-                                    "ไม่มีรายละเอียด"
-                                )}
-                            </p>
-
-                            <div class="deadline">
-
-                                <span>
-                                    ⏰ กำหนดส่ง:
-                                    ${formatDateTime(item.date)}
-                                </span>
-
-                                <button
-                                    class="delete-button"
-                                    onclick="deleteAssignment(${index})">
-
-                                    ลบ
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }).join("");
-
-        }
-
+        return;
     }
 
 
-    if (dashboard) {
+    const sorted =
+        [...assignments].sort(
+            (a, b) => a.date.localeCompare(b.date)
+        );
 
-        const latest =
-            assignments.slice(0, 3);
 
+    list.innerHTML =
+        sorted.map(item => `
 
-        if (latest.length === 0) {
+            <div class="item-card">
 
-            dashboard.innerHTML = `
-                <div class="empty">
-                    ยังไม่มีงาน
+                <span class="item-date">
+                    📅 ${formatDate(item.date)}
+                </span>
+
+                <h3>
+                    ${safeText(item.name)}
+                </h3>
+
+                <p>
+                    ${safeText(item.detail || "ไม่มีรายละเอียด")}
+                </p>
+
+                <div class="item-actions">
+
+                    <button
+                        class="small-btn delete-btn"
+                        onclick="deleteAssignment(${item.id})">
+                        🗑 ลบ
+                    </button>
+
                 </div>
-            `;
 
-        }
-        else {
+            </div>
 
-            dashboard.innerHTML =
-                latest.map(item => `
+        `).join("");
 
-                    <div class="assignment-mini">
 
-                        <h4>
-                            ${escapeHTML(item.name)}
-                        </h4>
+    const recent =
+        sorted.slice(0, 3);
 
-                        <p>
-                            ${escapeHTML(
-                                item.detail ||
-                                "ไม่มีรายละเอียด"
-                            )}
-                        </p>
 
-                        <small>
-                            ⏰ ${formatDateTime(item.date)}
-                        </small>
+    dashboard.innerHTML =
+        recent.map(item => `
 
-                    </div>
+            <div class="dashboard-item">
 
-                `).join("");
+                <strong>
+                    ${safeText(item.name)}
+                </strong>
 
-        }
+                <small>
+                    กำหนดส่ง ${formatDate(item.date)}
+                </small>
 
-    }
+            </div>
 
+        `).join("");
 }
 
 
@@ -624,11 +508,12 @@ function addExam() {
         alert("กรุณากรอกวิชาและวันที่สอบ");
 
         return;
-
     }
 
 
     exams.push({
+
+        id: Date.now(),
 
         subject,
         date,
@@ -640,34 +525,31 @@ function addExam() {
 
     saveData();
 
-    renderExams();
+    renderAll();
 
     closeModal("examModal");
 
-
-    document.getElementById("examSubject").value = "";
-    document.getElementById("examDate").value = "";
-    document.getElementById("examTime").value = "";
-    document.getElementById("examRoom").value = "";
-
+    clearForm([
+        "examSubject",
+        "examDate",
+        "examTime",
+        "examRoom"
+    ]);
 }
 
 
-function deleteExam(index) {
+function deleteExam(id) {
 
-    if (!confirm("ต้องการลบตารางสอบนี้หรือไม่?")) {
-
+    if (!confirm("ต้องการลบข้อมูลการสอบนี้หรือไม่?")) {
         return;
-
     }
 
-
-    exams.splice(index, 1);
+    exams =
+        exams.filter(item => item.id !== id);
 
     saveData();
 
-    renderExams();
-
+    renderAll();
 }
 
 
@@ -676,18 +558,6 @@ function renderExams() {
     const table =
         document.getElementById("examTable");
 
-    const count =
-        document.getElementById("examCount");
-
-
-    if (count) {
-
-        count.textContent =
-            exams.length;
-
-    }
-
-
     if (!table) return;
 
 
@@ -695,25 +565,32 @@ function renderExams() {
 
         table.innerHTML = `
             <tr>
-                <td colspan="5" class="empty">
-                    ยังไม่มีตารางสอบ
+                <td colspan="5">
+                    <div class="empty">
+                        ยังไม่มีข้อมูลการสอบ
+                    </div>
                 </td>
             </tr>
         `;
 
         return;
-
     }
 
 
+    const sorted =
+        [...exams].sort(
+            (a, b) => a.date.localeCompare(b.date)
+        );
+
+
     table.innerHTML =
-        exams.map((item, index) => `
+        sorted.map(item => `
 
             <tr>
 
                 <td>
                     <strong>
-                        ${escapeHTML(item.subject)}
+                        ${safeText(item.subject)}
                     </strong>
                 </td>
 
@@ -722,21 +599,19 @@ function renderExams() {
                 </td>
 
                 <td>
-                    ${escapeHTML(item.time || "-")}
+                    ${safeText(item.time || "-")}
                 </td>
 
                 <td>
-                    ${escapeHTML(item.room || "-")}
+                    ${safeText(item.room || "-")}
                 </td>
 
                 <td>
 
                     <button
-                        class="delete-button"
-                        onclick="deleteExam(${index})">
-
+                        class="small-btn delete-btn"
+                        onclick="deleteExam(${item.id})">
                         ลบ
-
                     </button>
 
                 </td>
@@ -744,7 +619,6 @@ function renderExams() {
             </tr>
 
         `).join("");
-
 }
 
 
@@ -767,14 +641,15 @@ function addAppointment() {
 
     if (!name || !date) {
 
-        alert("กรุณากรอกชื่อนัดหมายและวันที่");
+        alert("กรุณากรอกหัวข้อนัดหมายและวันที่");
 
         return;
-
     }
 
 
     appointments.push({
+
+        id: Date.now(),
 
         name,
         date,
@@ -786,34 +661,31 @@ function addAppointment() {
 
     saveData();
 
-    renderAppointments();
+    renderAll();
 
     closeModal("appointmentModal");
 
-
-    document.getElementById("appointmentName").value = "";
-    document.getElementById("appointmentDate").value = "";
-    document.getElementById("appointmentTime").value = "";
-    document.getElementById("appointmentRoom").value = "";
-
+    clearForm([
+        "appointmentName",
+        "appointmentDate",
+        "appointmentTime",
+        "appointmentRoom"
+    ]);
 }
 
 
-function deleteAppointment(index) {
+function deleteAppointment(id) {
 
     if (!confirm("ต้องการลบนัดหมายนี้หรือไม่?")) {
-
         return;
-
     }
 
-
-    appointments.splice(index, 1);
+    appointments =
+        appointments.filter(item => item.id !== id);
 
     saveData();
 
-    renderAppointments();
-
+    renderAll();
 }
 
 
@@ -822,89 +694,61 @@ function renderAppointments() {
     const list =
         document.getElementById("appointmentList");
 
-
     if (!list) return;
 
 
     if (appointments.length === 0) {
 
         list.innerHTML = `
-            <div class="empty">
-                ยังไม่มีนัดหมาย
+            <div class="card">
+                <div class="empty">
+                    ยังไม่มีนัดหมาย
+                </div>
             </div>
         `;
 
         return;
-
     }
 
 
+    const sorted =
+        [...appointments].sort(
+            (a, b) => a.date.localeCompare(b.date)
+        );
+
+
     list.innerHTML =
-        appointments.map((item, index) => {
+        sorted.map(item => `
 
-            const date =
-                new Date(item.date + "T00:00:00");
+            <div class="item-card">
 
+                <span class="item-date">
+                    📅 ${formatDate(item.date)}
+                </span>
 
-            const day =
-                date.getDate();
+                <h3>
+                    ${safeText(item.name)}
+                </h3>
 
+                <p>
+                    🕐 ${safeText(item.time || "-")}
+                    <br>
+                    📍 ${safeText(item.room || "-")}
+                </p>
 
-            const month =
-                date.toLocaleDateString(
-                    "th-TH",
-                    {
-                        month: "short"
-                    }
-                );
-
-
-            return `
-
-                <div class="card appointment-card">
-
-                    <div class="appointment-date">
-
-                        <strong>
-                            ${day}
-                        </strong>
-
-                        <span>
-                            ${month}
-                        </span>
-
-                    </div>
-
-
-                    <div class="appointment-info">
-
-                        <h3>
-                            ${escapeHTML(item.name)}
-                        </h3>
-
-                        <p>
-                            📍 ${escapeHTML(item.room || "-")}
-                            •
-                            🕐 ${escapeHTML(item.time || "-")} น.
-                        </p>
-
-                    </div>
-
+                <div class="item-actions">
 
                     <button
-                        class="delete-button"
-                        onclick="deleteAppointment(${index})">
-
-                        ลบ
-
+                        class="small-btn delete-btn"
+                        onclick="deleteAppointment(${item.id})">
+                        🗑 ลบ
                     </button>
 
                 </div>
 
-            `;
+            </div>
 
-        }).join("");
-
+        `).join("");
 }
 
 
@@ -919,52 +763,53 @@ function addAnnouncement() {
         document.getElementById("announcementDetailInput").value.trim();
 
 
-    if (!title || !detail) {
+    if (!title) {
 
-        alert("กรุณากรอกหัวข้อและรายละเอียด");
+        alert("กรุณากรอกหัวข้อประกาศ");
 
         return;
-
     }
 
 
     announcements.unshift({
 
+        id: Date.now(),
+
         title,
         detail,
-        date: "วันนี้"
+
+        date: new Date().toLocaleDateString(
+            "th-TH"
+        )
 
     });
 
 
     saveData();
 
-    renderAnnouncements();
+    renderAll();
 
     closeModal("announcementModal");
 
-
-    document.getElementById("announcementTitle").value = "";
-    document.getElementById("announcementDetailInput").value = "";
-
+    clearForm([
+        "announcementTitle",
+        "announcementDetailInput"
+    ]);
 }
 
 
-function deleteAnnouncement(index) {
+function deleteAnnouncement(id) {
 
     if (!confirm("ต้องการลบประกาศนี้หรือไม่?")) {
-
         return;
-
     }
 
-
-    announcements.splice(index, 1);
+    announcements =
+        announcements.filter(item => item.id !== id);
 
     saveData();
 
-    renderAnnouncements();
-
+    renderAll();
 }
 
 
@@ -976,186 +821,158 @@ function renderAnnouncements() {
     const dashboard =
         document.getElementById("dashboardAnnouncements");
 
-    const count =
-        document.getElementById("announcementCount");
+
+    if (!list || !dashboard) return;
 
 
-    if (count) {
+    if (announcements.length === 0) {
 
-        count.textContent =
-            announcements.length;
-
-    }
-
-
-    if (list) {
-
-        if (announcements.length === 0) {
-
-            list.innerHTML = `
+        list.innerHTML = `
+            <div class="card">
                 <div class="empty">
                     ยังไม่มีประกาศ
                 </div>
-            `;
+            </div>
+        `;
 
-        }
-        else {
+        dashboard.innerHTML = `
+            <div class="empty">
+                ยังไม่มีประกาศ
+            </div>
+        `;
 
-            list.innerHTML =
-                announcements.map((item, index) => `
-
-                    <div class="announcement-full">
-
-                        <span class="tag">
-                            ประกาศ
-                        </span>
-
-                        <h3>
-                            ${escapeHTML(item.title)}
-                        </h3>
-
-                        <p>
-                            ${escapeHTML(item.detail)}
-                        </p>
-
-                        <div class="deadline">
-
-                            <small>
-                                ประกาศโดยหัวหน้าห้อง •
-                                ${escapeHTML(item.date)}
-                            </small>
-
-                            <button
-                                class="delete-button"
-                                onclick="deleteAnnouncement(${index})">
-
-                                ลบ
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `).join("");
-
-        }
-
+        return;
     }
 
 
-    if (dashboard) {
+    list.innerHTML =
+        announcements.map(item => `
 
-        const latest =
-            announcements.slice(0, 3);
+            <div class="item-card">
 
+                <span class="item-date">
+                    📢 ${safeText(item.date)}
+                </span>
 
-        if (latest.length === 0) {
+                <h3>
+                    ${safeText(item.title)}
+                </h3>
 
-            dashboard.innerHTML = `
-                <div class="empty">
-                    ยังไม่มีประกาศ
+                <p>
+                    ${safeText(
+                        item.detail || "ไม่มีรายละเอียด"
+                    )}
+                </p>
+
+                <div class="item-actions">
+
+                    <button
+                        class="small-btn delete-btn"
+                        onclick="deleteAnnouncement(${item.id})">
+                        🗑 ลบ
+                    </button>
+
                 </div>
-            `;
 
-        }
-        else {
+            </div>
 
-            dashboard.innerHTML =
-                latest.map(item => `
+        `).join("");
 
-                    <div class="announcement-mini">
 
-                        <h4>
-                            ${escapeHTML(item.title)}
-                        </h4>
+    dashboard.innerHTML =
+        announcements
+            .slice(0, 3)
+            .map(item => `
 
-                        <p>
-                            ${escapeHTML(item.detail)}
-                        </p>
+                <div class="dashboard-item">
 
-                        <small>
-                            📢 ${escapeHTML(item.date)}
-                        </small>
+                    <strong>
+                        ${safeText(item.title)}
+                    </strong>
 
-                    </div>
+                    <small>
+                        ${safeText(item.date)}
+                    </small>
 
-                `).join("");
+                </div>
 
-        }
-
-    }
-
+            `).join("");
 }
 
 
-/* ================= FORMAT ================= */
+/* ================= DASHBOARD ================= */
 
-function formatDate(dateString) {
+function updateDashboard() {
 
-    if (!dateString) return "-";
+    const today =
+        new Date().toLocaleDateString(
+            "th-TH",
+            { weekday: "long" }
+        );
 
 
-    const date =
-        new Date(dateString + "T00:00:00");
+    const todayCount =
+        schedules.filter(
+            item => item.day === today
+        ).length;
 
 
-    return date.toLocaleDateString(
-        "th-TH",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        }
-    );
+    document.getElementById("today").textContent =
+        todayCount;
 
+    document.getElementById("assignmentCount").textContent =
+        assignments.length;
+
+    document.getElementById("examCount").textContent =
+        exams.length;
+
+    document.getElementById("announcementCount").textContent =
+        announcements.length;
 }
 
 
-function formatDateTime(dateString) {
+/* ================= CLEAR FORM ================= */
 
-    if (!dateString) return "-";
+function clearForm(ids) {
 
+    ids.forEach(id => {
 
-    const date =
-        new Date(dateString);
+        const element =
+            document.getElementById(id);
 
-
-    return date.toLocaleDateString(
-        "th-TH",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
+        if (element) {
+            element.value = "";
         }
-    )
-    +
-    " "
-    +
-    date.toLocaleTimeString(
-        "th-TH",
-        {
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    )
-    +
-    " น.";
 
+    });
 }
 
 
-/* ================= SECURITY ================= */
+/* ================= RENDER ALL ================= */
 
-function escapeHTML(value) {
+function renderAll() {
 
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    renderSchedules();
 
+    renderAssignments();
+
+    renderExams();
+
+    renderAppointments();
+
+    renderAnnouncements();
+
+    updateDashboard();
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logout() {
+
+    sessionStorage.removeItem("studyBuddyLogin");
+
+    window.location.href = "login.html";
 }
 
 
@@ -1165,17 +982,7 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        updateToday();
-
-        renderSchedules();
-
-        renderAssignments();
-
-        renderExams();
-
-        renderAppointments();
-
-        renderAnnouncements();
+        renderAll();
 
     }
 );
