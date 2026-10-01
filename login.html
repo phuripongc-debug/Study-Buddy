@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Study Buddy">
+
+    <title>Login - Study Buddy</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -13,138 +16,370 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f7fb;
+            min-height: 100vh;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb 0%,
+                    #4f46e5 45%,
+                    #7c3aed 100%
+                );
         }
+
+
+        /* พื้นหลังตกแต่ง */
+
+        .circle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.10);
+            pointer-events: none;
+        }
+
+        .circle.one {
+            width: 350px;
+            height: 350px;
+            top: -120px;
+            left: -100px;
+        }
+
+        .circle.two {
+            width: 450px;
+            height: 450px;
+            bottom: -220px;
+            right: -150px;
+        }
+
+        .circle.three {
+            width: 180px;
+            height: 180px;
+            top: 15%;
+            right: 15%;
+        }
+
+
+        /* หน้าหลัก */
 
         .login-page {
             min-height: 100vh;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
+            padding: 20px;
+
+            position: relative;
+            z-index: 2;
         }
+
+
+        /* กล่อง Login */
 
         .login-card {
-            width: 380px;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 430px;
+
+            padding: 45px;
+
+            background: rgba(255,255,255,0.96);
+
+            border-radius: 26px;
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.25);
+
+            backdrop-filter: blur(10px);
+
+            animation: appear 0.6s ease;
         }
 
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* Logo */
+
         .logo {
-            width: 65px;
-            height: 65px;
+            width: 78px;
+            height: 78px;
+
             margin: 0 auto 20px;
-            border-radius: 16px;
-            background: #2563eb;
-            color: white;
+
+            border-radius: 22px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+
+            color: white;
+
+            font-size: 27px;
             font-weight: bold;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 12px 25px rgba(79,70,229,0.35);
         }
 
+
+        /* หัวข้อ */
+
         h1 {
-            text-align: center;
             margin: 0;
+
+            text-align: center;
+
+            font-size: 30px;
+
             color: #172033;
         }
 
+
         .subtitle {
             text-align: center;
+
             color: #718096;
-            margin-bottom: 30px;
-        }
 
-        label {
-            display: block;
-            margin: 15px 0 7px;
-            font-weight: bold;
-        }
+            margin-top: 8px;
+            margin-bottom: 32px;
 
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #d5dbe5;
-            border-radius: 10px;
             font-size: 15px;
         }
 
+
+        /* ช่องกรอก */
+
+        label {
+            display: block;
+
+            margin-top: 17px;
+            margin-bottom: 8px;
+
+            color: #374151;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 1px solid #d9deea;
+
+            border-radius: 12px;
+
+            background: #f8fafc;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        input:focus {
+
+            background: white;
+
+            border-color: #4f46e5;
+
+            box-shadow:
+                0 0 0 4px rgba(79,70,229,0.10);
+        }
+
+
+        /* ปุ่ม */
+
         button {
             width: 100%;
-            margin-top: 25px;
-            padding: 14px;
+
+            margin-top: 28px;
+
+            padding: 15px;
+
             border: none;
-            border-radius: 10px;
-            background: #2563eb;
+
+            border-radius: 12px;
+
             color: white;
+
             font-size: 16px;
+
             font-weight: bold;
+
             cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 10px 20px rgba(79,70,229,0.25);
+
+            transition: 0.2s;
         }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 25px rgba(79,70,229,0.35);
+        }
+
+
+        button:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* ข้อความ Error */
 
         #message {
-            text-align: center;
-            color: #dc2626;
+
+            min-height: 20px;
+
             margin-top: 15px;
+
+            text-align: center;
+
+            color: #dc2626;
+
+            font-size: 14px;
         }
+
+
+        /* มือถือ */
+
+        @media (max-width: 500px) {
+
+            .login-card {
+                padding: 32px 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+        }
+
     </style>
+
 </head>
 
+
 <body>
+
+
+<!-- Background -->
+
+<div class="circle one"></div>
+<div class="circle two"></div>
+<div class="circle three"></div>
+
+
+<!-- Login -->
 
 <div class="login-page">
 
     <div class="login-card">
 
+
         <div class="logo">
             SB
         </div>
 
-        <h1>Study Buddy</h1>
+
+        <h1>
+            Study Buddy
+        </h1>
+
 
         <p class="subtitle">
-            เข้าสู่ระบบ
+            ระบบช่วยจัดการห้องเรียน
         </p>
 
-        <label>ชื่อผู้ใช้</label>
+
+        <label>
+            ชื่อผู้ใช้
+        </label>
 
         <input
             id="username"
             type="text"
-            placeholder="ชื่อผู้ใช้"
+            placeholder="กรอกชื่อผู้ใช้"
         >
 
-        <label>รหัสผ่าน</label>
+
+        <label>
+            รหัสผ่าน
+        </label>
 
         <input
             id="password"
             type="password"
-            placeholder="รหัสผ่าน"
+            placeholder="กรอกรหัสผ่าน"
         >
+
 
         <button onclick="login()">
             เข้าสู่ระบบ
         </button>
 
+
         <p id="message"></p>
+
 
     </div>
 
 </div>
+
 
 <script>
 
 function login() {
 
     const username =
-        document.getElementById("username").value;
+        document.getElementById("username").value.trim();
 
     const password =
         document.getElementById("password").value;
 
-    if (username === "student" && password === "1234") {
+
+    if (
+        username === "student" &&
+        password === "1234"
+    ) {
 
         window.location.href = "index.html";
 
@@ -159,5 +394,7 @@ function login() {
 
 </script>
 
+
 </body>
+
 </html>
