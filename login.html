@@ -3,10 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Study Buddy">
 
-    <title>Login - Study Buddy</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-card {
+            width: 380px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 20px;
+            border-radius: 16px;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            color: #172033;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dbe5;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #message {
+            text-align: center;
+            color: #dc2626;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,46 +98,51 @@
 
     <div class="login-card">
 
-        <div class="brand-logo">
+        <div class="logo">
             SB
         </div>
 
         <h1>Study Buddy</h1>
 
-        <p>เข้าสู่ระบบจัดการห้องเรียน</p>
+        <p class="subtitle">
+            เข้าสู่ระบบ
+        </p>
 
         <label>ชื่อผู้ใช้</label>
+
         <input
             id="username"
             type="text"
-            placeholder="กรอกชื่อผู้ใช้"
+            placeholder="ชื่อผู้ใช้"
         >
 
         <label>รหัสผ่าน</label>
+
         <input
             id="password"
             type="password"
-            placeholder="กรอกรหัสผ่าน"
+            placeholder="รหัสผ่าน"
         >
 
-        <button
-            class="primary-button full"
-            onclick="login()"
-        >
+        <button onclick="login()">
             เข้าสู่ระบบ
         </button>
 
-        <p id="loginMessage"></p>
+        <p id="message"></p>
 
     </div>
 
 </div>
 
 <script>
+
 function login() {
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username =
+        document.getElementById("username").value;
+
+    const password =
+        document.getElementById("password").value;
 
     if (username === "student" && password === "1234") {
 
@@ -62,11 +150,14 @@ function login() {
 
     } else {
 
-        document.getElementById("loginMessage").textContent =
+        document.getElementById("message").textContent =
             "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
 
     }
+
 }
+
 </script>
+
 </body>
 </html>
